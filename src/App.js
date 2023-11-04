@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { getWeatherData } from "./Weatherservice.js";
 
-function App() {
+export default function App() {
+  const [weather, setWeather] = useState(null);
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      const data = await getWeatherData("paris");
+      setWeather(data);
+    };
+
+    fetchWeatherData();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Form />
+      {weather && (
+        <div className="weather-list">
+          <ul className="weather">
+            <h1>
+              {weather.temperature} °C, {weather.weather_descriptions}
+            </h1>
+            <img src={weather.weather_icons} alt="weathericon" />
+            <p>{`${weather.name}, ${weather.country}`}</p>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+function Form() {
+  return (
+    <form className="add-group">
+      <input type="text" placeholder="Cities" />
+      <button>Search</button>
+    </form>
+  );
+}
