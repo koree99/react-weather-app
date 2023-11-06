@@ -3,7 +3,23 @@ import { getWeatherData } from "./Weatherservice.js";
 
 export default function App() {
   const [city, setCity] = useState("paris");
+  const [location, setLocation] = useState();
   const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    //on first load, get current position of client
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }, [location]);
+
+  const showPosition = (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    //set location to client position
+    setLocation({
+      lat,
+      lon,
+    });
+  };
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -20,6 +36,7 @@ export default function App() {
       e.currentTarget.blur();
     }
   };
+
   return (
     <div className="container">
       <h3>Weather App</h3>
@@ -43,6 +60,10 @@ export default function App() {
           </div>
         </div>
       )}
+      {/* <div className="cities">
+        <h3>15 largest cities in the world</h3>
+        <p></p>
+      </div> */}
     </div>
   );
 }

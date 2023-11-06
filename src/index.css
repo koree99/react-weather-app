@@ -54,6 +54,9 @@ body {
   padding-left: 2rem;
   color: white;
 }
+.weather img {
+  border-radius: 8px;
+}
 h1 {
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
@@ -65,4 +68,32 @@ h2 {
 .section-temp {
   padding-right: 2rem;
   color: white;
+}
+.btn {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  margin-top: 1%;
+}
+.btn button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 480px) {
+  .add-group,
+  .weather-list {
+    width: 90%;
+  }
+  .add-group input {
+    width: 50%;
+  }
+  h1 {
+    font-size: 17px;
+  }
+  h2 {
+    font-size: 25px;
+  }
 }
